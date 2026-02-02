@@ -1,13 +1,10 @@
 {
-  "name": "ganesha-site",
+  "name": "ganesha-platform",
   "version": "1.0.0",
-  "description": "Ganesha crafts storefront",
-  "main": "server.js",
+  "private": true,
+  "description": "Fullstack Shree Ganesh Murti Kala Kendra platform",
   "scripts": {
-    "start": "node server.js"
-  },
-  "dependencies": {
-    "express": "^4.18.3",
-    "sqlite3": "^5.1.7"
+    "dev": "echo 'Run backend and frontend separately'",
+    "start": "echo 'Run backend and frontend separately'"
   }
 }

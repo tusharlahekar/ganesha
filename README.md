@@ -1,44 +1,44 @@
-# ganesha
+# Shree Ganesh Murti Kala Kendra
 
-## Step-by-step build plan
+Premium fullstack storefront for Ganpati murtis with a luxury Indian theme.
 
-### 1) Database schema
+## Folder structure
 
-The SQLite schema lives in `db/schema.sql` with tables for categories, products, orders, and order items.
-Seed data is in `db/seed.sql`.
+```
+backend/    # Node.js + Express API + PostgreSQL schema
+frontend/   # Next.js + Tailwind CSS storefront and admin UI
+```
 
-### 2) Backend APIs
+## Features
 
-The Node/Express server in `server.js` boots the database and exposes APIs:
+- Traditional Indian + modern luxury UI theme (saffron, maroon, gold).
+- Home, product listing, product detail, cart, checkout, admin, about, contact pages.
+- Lazy loaded product listing with filters and sorting.
+- SEO schema markup for product pages.
+- Admin tools for bulk CSV upload, inventory, pricing, analytics.
 
-- `GET /api/products`
-- `GET /api/products/:id`
-- `POST /api/orders`
-- Admin: `GET /api/admin/orders`, `GET/POST/PATCH/DELETE /api/admin/products`
-
-### 3) Frontend pages
-
-Static assets are in `public/`:
-
-- `public/index.html` renders the storefront.
-- `public/app.js` fetches products and submits orders.
-
-### 4) Admin dashboard
-
-- `public/admin.html` contains the admin dashboard UI.
-- `public/admin.js` manages products and shows orders.
-
-### 5) Deployment
-
-See `docs/deployment.md` for local and Docker deployment steps.
-
-## Local development
+## Backend (Express + PostgreSQL)
 
 ```bash
+cd backend
 npm install
+cp .env.example .env
+npm run seed
 npm start
 ```
 
-Visit:
-- Storefront: http://localhost:3000
-- Admin dashboard: http://localhost:3000/admin.html
+Backend runs on `http://localhost:4000`.
+
+## Frontend (Next.js + Tailwind)
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Frontend runs on `http://localhost:3000`.
+
+## Deployment
+
+See `docs/deployment.md` for AWS/Vercel setup, database provisioning, and CDN guidance.
