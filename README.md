@@ -9,6 +9,8 @@ backend/    # Node.js + Express API + PostgreSQL schema
 frontend/   # Next.js + Tailwind CSS storefront and admin UI
 ```
 
+Legacy single-file SQLite/Express assets have been removed in favor of the split backend/frontend architecture.
+
 ## Features
 
 - Traditional Indian + modern luxury UI theme (saffron, maroon, gold).
