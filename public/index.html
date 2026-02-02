@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Ganesha Sacred Crafts</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Ganesha Sacred Crafts</h1>
+      <p>
+        Curated artisanal pieces for mindful homes. Discover statues, lamps, and
+        altars inspired by tradition and made for modern rituals.
+      </p>
+      <a class="cta" href="#collection">Explore the collection</a>
+    </header>
+
+    <main>
+      <section id="collection">
+        <div class="section-title">
+          <h2>Featured collection</h2>
+          <span class="notice">Hand-selected weekly</span>
+        </div>
+        <div class="grid" id="productGrid"></div>
+      </section>
+
+      <section class="order-panel" id="orderPanel">
+        <div>
+          <h3>Place an order</h3>
+          <p class="notice">Leave your details and we will confirm availability within 24 hours.</p>
+        </div>
+        <label>
+          Name
+          <input type="text" id="customerName" placeholder="Your name" />
+        </label>
+        <label>
+          Email
+          <input type="email" id="customerEmail" placeholder="you@example.com" />
+        </label>
+        <label>
+          Product
+          <select id="productSelect"></select>
+        </label>
+        <label>
+          Quantity
+          <input type="number" id="quantity" min="1" value="1" />
+        </label>
+        <button id="orderButton">Request order</button>
+        <p class="notice" id="orderStatus"></p>
+      </section>
+    </main>
+
+    <footer>
+      <p>Visit our studio: 123 Harmony Lane, Jaipur · Open Tue-Sun ·</p>
+      <p class="notice">Need help? support@ganesha-crafts.example</p>
+    </footer>
+
+    <script src="/app.js"></script>
+  </body>
+</html>
