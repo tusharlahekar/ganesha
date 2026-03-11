@@ -1,0 +1,10 @@
+{
+  "name": "ganesha-platform",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Fullstack Shree Ganesh Murti Kala Kendra platform",
+  "scripts": {
+    "dev": "echo 'Run backend and frontend separately'",
+    "start": "echo 'Run backend and frontend separately'"
+  }
+}
