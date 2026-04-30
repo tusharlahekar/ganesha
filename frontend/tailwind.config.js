@@ -3,10 +3,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        saffron: '#f39c12',
-        maroon: '#6b0f1a',
-        gold: '#d8a74b',
-        ivory: '#fdf9f3'
+        saffron: '#EF3B33',
+        maroon: '#8E0D3C',
+        gold: '#FDA1A2',
+        ivory: '#FFF5F6',
+        blackcurrant: '#1D1842'
       },
       fontFamily: {
         heading: ['"Cinzel Decorative"', '"Garamond"', 'serif'],

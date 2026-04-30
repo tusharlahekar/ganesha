@@ -1,6 +1,7 @@
-import './globals.css';
+import '../styles/globals.css';
 import { Cinzel_Decorative, Inter } from 'next/font/google';
 import Providers from '../components/Providers';
+import { CartProvider } from '../components/CartContext';
 
 const heading = Cinzel_Decorative({ subsets: ['latin'], weight: ['400', '700'] });
 const body = Inter({ subsets: ['latin'] });
@@ -15,9 +16,11 @@ export default function RootLayout({ children }) {
     <html lang="en" className={`${heading.className} ${body.className}`}>
       <body>
         <Providers>
-          <div className="min-h-screen bg-temple bg-repeat">
-            {children}
-          </div>
+          <CartProvider>
+            <div className="min-h-screen bg-temple bg-repeat">
+              {children}
+            </div>
+          </CartProvider>
         </Providers>
       </body>
     </html>

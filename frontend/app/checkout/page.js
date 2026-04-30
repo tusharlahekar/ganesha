@@ -8,19 +8,32 @@ import { useCart } from '../../components/CartContext';
 export default function CheckoutPage() {
   const { items, total } = useCart();
   const [status, setStatus] = useState('');
+  const STORE_WHATSAPP_NUMBER = '';
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     setStatus('');
+    if (!items.length) {
+      setStatus('Your cart is empty. Add a murti before checkout.');
+      return;
+    }
+
     const formData = new FormData(event.currentTarget);
+    const firstItem = items[0];
     const payload = {
       userName: formData.get('name'),
       phone: formData.get('phone'),
       address: formData.get('address'),
-      murtiId: items[0]?.id || 'sample',
-      quantity: items[0]?.quantity || 1,
+      murtiId: firstItem?.id || null,
+      quantity: items.reduce((sum, item) => sum + item.quantity, 0),
       totalPrice: total,
-      paymentMethod: formData.get('payment')
+      paymentMethod: formData.get('payment'),
+      lineItems: items.map((item) => ({
+        id: item.id,
+        name: item.name,
+        quantity: item.quantity,
+        unitPrice: item.price
+      }))
     };
 
     try {
@@ -30,9 +43,33 @@ export default function CheckoutPage() {
         body: JSON.stringify(payload)
       });
       if (!response.ok) throw new Error('failed');
-      setStatus('Order confirmed! WhatsApp confirmation will be sent shortly.');
+      const data = await response.json();
+      const fallbackMessage = [
+        'New Order Enquiry',
+        `Customer: ${payload.userName}`,
+        `Phone: ${payload.phone}`,
+        `Address: ${payload.address}`,
+        `Items: ${payload.lineItems.map((item) => `${item.name} x${item.quantity}`).join(', ')}`,
+        `Total: INR ${payload.totalPrice.toFixed(2)}`,
+        `Payment: ${payload.paymentMethod}`
+      ].join('\n');
+      const fallbackWhatsAppUrl = `https://wa.me/${STORE_WHATSAPP_NUMBER}?text=${encodeURIComponent(fallbackMessage)}`;
+      const whatsappUrl = data.whatsappUrl || fallbackWhatsAppUrl;
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      setStatus(`Order confirmed! Order ID: ${data.order?.id || 'generated'}. WhatsApp chat opened.`);
     } catch (error) {
-      setStatus('Unable to place order in demo environment.');
+      const manualMessage = [
+        'New Order Enquiry',
+        `Customer: ${payload.userName}`,
+        `Phone: ${payload.phone}`,
+        `Address: ${payload.address}`,
+        `Items: ${payload.lineItems.map((item) => `${item.name} x${item.quantity}`).join(', ')}`,
+        `Total: INR ${payload.totalPrice.toFixed(2)}`,
+        `Payment: ${payload.paymentMethod}`
+      ].join('\n');
+      const whatsappUrl = `https://wa.me/${STORE_WHATSAPP_NUMBER}?text=${encodeURIComponent(manualMessage)}`;
+      window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
+      setStatus('Backend unavailable, but WhatsApp order message opened successfully.');
     }
   };
 

@@ -2,22 +2,23 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import { localMurtiImages } from '../data/localImages';
 
 const slides = [
   {
     title: 'Royal Ganpati Collection',
     subtitle: 'Gold-leaf detailing with temple-grade finish.',
-    image: 'https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1400&q=80'
+    image: localMurtiImages[3]
   },
   {
     title: 'Eco-Friendly Shadu Series',
     subtitle: 'Biodegradable murtis with serene pastel hues.',
-    image: 'https://images.unsplash.com/photo-1487412720507-e7ab37603c6f?auto=format&fit=crop&w=1400&q=80'
+    image: localMurtiImages[4]
   },
   {
     title: 'Marble Heritage Idols',
     subtitle: 'Hand-sculpted with fine chiseling by master artisans.',
-    image: 'https://images.unsplash.com/photo-1471879832106-c7ab9e0cee23?auto=format&fit=crop&w=1400&q=80'
+    image: localMurtiImages[5]
   }
 ];
 

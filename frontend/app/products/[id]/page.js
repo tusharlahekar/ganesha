@@ -2,20 +2,29 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Navbar from '../../../components/Navbar';
 import Footer from '../../../components/Footer';
 import WhatsAppButton from '../../../components/WhatsAppButton';
 import { useCart } from '../../../components/CartContext';
 import { sampleMurtis } from '../../../data/sampleMurtis';
+import { localMurtiImages } from '../../../data/localImages';
 
 const fallback = sampleMurtis[0];
+const getLocalImageSet = (seed = 0) => [
+  localMurtiImages[seed % localMurtiImages.length],
+  localMurtiImages[(seed + 1) % localMurtiImages.length],
+  localMurtiImages[(seed + 2) % localMurtiImages.length]
+];
 
 export default function ProductDetailPage() {
   const params = useParams();
+  const router = useRouter();
   const { addItem } = useCart();
   const [murti, setMurti] = useState(fallback);
   const [activeImage, setActiveImage] = useState(fallback.image_urls?.[0]);
   const [recommendations, setRecommendations] = useState([]);
+  const [actionStatus, setActionStatus] = useState('');
 
   useEffect(() => {
     const load = async () => {
@@ -23,11 +32,21 @@ export default function ProductDetailPage() {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000'}/api/murtis/${params.id}`);
         if (!response.ok) throw new Error('failed');
         const data = await response.json();
-        setMurti(data);
-        setActiveImage(data.image_urls?.[0]);
+        const productWithLocalImages = {
+          ...data,
+          image_urls: getLocalImageSet(Number(data.id) || 0)
+        };
+        setMurti(productWithLocalImages);
+        setActiveImage(productWithLocalImages.image_urls?.[0]);
         const recs = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000'}/api/murtis/${params.id}/recommendations`);
         if (recs.ok) {
-          setRecommendations(await recs.json());
+          const recommendationData = await recs.json();
+          setRecommendations(
+            recommendationData.map((item, index) => ({
+              ...item,
+              image_urls: getLocalImageSet(index + 3)
+            }))
+          );
         }
       } catch (error) {
         setMurti(fallback);
@@ -92,18 +111,40 @@ export default function ProductDetailPage() {
               <div className="mt-6 flex flex-wrap gap-3">
                 <button
                   className="px-5 py-3 rounded-full bg-maroon text-white font-semibold"
-                  onClick={() => addItem({ id: murti.id, name: murti.name, price: Number(murti.price) })}
+                  onClick={() => {
+                    addItem({
+                      id: murti.id,
+                      name: murti.name,
+                      price: Number(murti.price),
+                      image: murti.image_urls?.[0],
+                      quantity: 1
+                    });
+                    setActionStatus('Added to cart.');
+                  }}
                 >
                   Add to Cart
                 </button>
-                <button className="px-5 py-3 rounded-full bg-gold text-maroon font-semibold">
+                <button
+                  className="px-5 py-3 rounded-full bg-gold text-maroon font-semibold"
+                  onClick={() => {
+                    addItem({
+                      id: murti.id,
+                      name: murti.name,
+                      price: Number(murti.price),
+                      image: murti.image_urls?.[0],
+                      quantity: 1
+                    });
+                    router.push('/checkout');
+                  }}
+                >
                   Buy Now
                 </button>
                 <WhatsAppButton
-                  phone="919876543210"
+                  phone=""
                   message={`Interested in ${murti.name}. Please share availability and delivery timeline.`}
                 />
               </div>
+              {actionStatus && <p className="text-sm text-blackcurrant/80 mt-3">{actionStatus}</p>}
             </div>
 
             <div className="glass-card p-6">

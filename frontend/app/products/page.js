@@ -5,9 +5,20 @@ import Navbar from '../../components/Navbar';
 import Footer from '../../components/Footer';
 import ProductCard from '../../components/ProductCard';
 import { sampleMurtis } from '../../data/sampleMurtis';
+import { localMurtiImages } from '../../data/localImages';
 
 const MATERIALS = ['Eco Clay', 'Shadu', 'POP', 'Marble', 'Brass'];
 const COLORS = ['Saffron', 'Maroon', 'Ivory', 'Gold', 'White'];
+
+const withLocalImages = (items) =>
+  items.map((item, index) => ({
+    ...item,
+    image_urls: [
+      localMurtiImages[index % localMurtiImages.length],
+      localMurtiImages[(index + 1) % localMurtiImages.length],
+      localMurtiImages[(index + 2) % localMurtiImages.length]
+    ]
+  }));
 
 export default function ProductsPage() {
   const [items, setItems] = useState([]);
@@ -41,10 +52,11 @@ export default function ProductsPage() {
         const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL || 'http://localhost:4000'}/api/murtis?${params.toString()}`);
         if (!response.ok) throw new Error('failed');
         const payload = await response.json();
+        const itemsWithLocalImages = withLocalImages(payload.data || []);
         if (meta.page === 1) {
-          setItems(payload.data);
+          setItems(itemsWithLocalImages);
         } else {
-          setItems((prev) => [...prev, ...payload.data]);
+          setItems((prev) => [...prev, ...itemsWithLocalImages]);
         }
         setMeta(payload.meta);
       } catch (error) {

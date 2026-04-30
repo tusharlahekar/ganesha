@@ -1,5 +1,7 @@
 export default function WhatsAppButton({ phone, message }) {
-  const url = `https://wa.me/${phone}?text=${encodeURIComponent(message)}`;
+  const digitsOnly = String(phone || '').replace(/\D/g, '');
+  const normalizedPhone = digitsOnly.length === 10 ? `91${digitsOnly}` : digitsOnly;
+  const url = `https://wa.me/${normalizedPhone}?text=${encodeURIComponent(message)}`;
   return (
     <a
       href={url}

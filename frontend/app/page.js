@@ -1,6 +1,7 @@
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import HeroSlider from '../components/HeroSlider';
+import FestivalAuraGenerator from '../components/FestivalAuraGenerator';
 import SectionHeader from '../components/SectionHeader';
 import CountdownTimer from '../components/CountdownTimer';
 import ProductCard from '../components/ProductCard';
@@ -24,6 +25,7 @@ export default function HomePage() {
       <Navbar />
       <main className="max-w-6xl mx-auto px-6 py-12 space-y-16">
         <HeroSlider />
+        <FestivalAuraGenerator />
 
         <section className="grid md:grid-cols-[1.4fr_0.6fr] gap-8">
           <div className="glass-card p-8">

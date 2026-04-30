@@ -8,6 +8,9 @@
 
 body {
   @apply bg-ivory text-maroon font-body;
+  background-image: radial-gradient(circle at 15% 20%, rgba(253, 161, 162, 0.25), transparent 35%),
+    radial-gradient(circle at 85% 10%, rgba(239, 59, 51, 0.2), transparent 32%),
+    linear-gradient(145deg, #fff5f6 10%, #ffe9ec 45%, #ffd7db 100%);
 }
 
 h1, h2, h3, h4 {
@@ -15,5 +18,34 @@ h1, h2, h3, h4 {
 }
 
 .glass-card {
-  @apply bg-white/90 shadow-xl backdrop-blur border border-white/60 rounded-3xl;
+  @apply bg-white/85 shadow-xl backdrop-blur border border-blackcurrant/10 rounded-3xl;
+}
+
+.festival-aura-ring {
+  animation: auraSpin 14s linear infinite;
+}
+
+.festival-aura-glow {
+  animation: auraPulse 2.2s ease-in-out infinite;
+}
+
+@keyframes auraSpin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes auraPulse {
+  0%,
+  100% {
+    transform: scale(0.95);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(1.04);
+    opacity: 1;
+  }
 }
