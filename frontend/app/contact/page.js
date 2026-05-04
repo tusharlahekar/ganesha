@@ -14,7 +14,7 @@ export default function ContactPage() {
             17 Heritage Lane, Pune · Open daily 9 AM to 9 PM
           </p>
           <div className="mt-6">
-            <WhatsAppButton phone="" message="Hello! I would like to inquire about Ganpati murtis." />
+            <WhatsAppButton phone="8390457139" message="Hello! I would like to inquire about Ganpati murtis." />
           </div>
           <div className="mt-6 rounded-3xl overflow-hidden border border-maroon/10">
             <iframe
